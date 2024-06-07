@@ -31,12 +31,12 @@ import 'models/editable_items.dart';
 class StoryMaker extends StatefulWidget {
   const StoryMaker({
     super.key,
-    required this.filePath,
+    this.filePath,
     this.animationsDuration = const Duration(milliseconds: 300),
     this.doneButtonChild,
   });
 
-  final String filePath;
+  final String? filePath;
   final Duration animationsDuration;
   final Widget? doneButtonChild;
 
@@ -149,7 +149,7 @@ class _StoryMakerState extends State<StoryMaker> {
     _stackData.add(
       EditableItem()
         ..type = ItemType.IMAGE
-        ..value = widget.filePath,
+        ..value = widget.filePath ?? '',
     );
     _familyPageController = PageController(viewportFraction: .125);
     _textColorsPageController = PageController(viewportFraction: .1);
@@ -185,27 +185,39 @@ class _StoryMakerState extends State<StoryMaker> {
                           key: previewContainer,
                           child: Stack(
                             children: [
-                              Visibility(
-                                visible: _stackData[0].type == ItemType.IMAGE,
-                                child: Center(
-                                  child: PhotoView(
-                                    enableRotation: true,
-                                    backgroundDecoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: FractionalOffset.topLeft,
-                                        end: FractionalOffset.centerRight,
-                                        colors: gradientColors[
-                                            _selectedBackgroundGradient],
+                              _stackData[0].value == ''
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          begin: FractionalOffset.topLeft,
+                                          end: FractionalOffset.centerRight,
+                                          colors: gradientColors[
+                                              _selectedBackgroundGradient],
+                                        ),
+                                      ),
+                                    )
+                                  : Visibility(
+                                      visible:
+                                          _stackData[0].type == ItemType.IMAGE,
+                                      child: Center(
+                                        child: PhotoView(
+                                          enableRotation: true,
+                                          backgroundDecoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              begin: FractionalOffset.topLeft,
+                                              end: FractionalOffset.centerRight,
+                                              colors: gradientColors[
+                                                  _selectedBackgroundGradient],
+                                            ),
+                                          ),
+                                          maxScale: 2.0,
+                                          enablePanAlways: false,
+                                          imageProvider: FileImage(
+                                            File(_stackData[0].value),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    maxScale: 2.0,
-                                    enablePanAlways: false,
-                                    imageProvider: FileImage(
-                                      File(_stackData[0].value),
-                                    ),
-                                  ),
-                                ),
-                              ),
                               ..._stackData.map(
                                 (editableItem) => OverlayItemWidget(
                                   editableItem: editableItem,
