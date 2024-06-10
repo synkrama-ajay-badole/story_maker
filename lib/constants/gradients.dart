@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 /// Each gradient is represented as a list of two Colors, defining the start and end points of the gradient.
 /// The gradients in this list can be used for various purposes, such as setting the background of a container.
 const List<List<Color>> gradientColors = [
+  [Colors.transparent, Colors.transparent],
   [Colors.black, Colors.black],
   [Color.fromRGBO(31, 179, 237, 1), Color.fromRGBO(17, 106, 197, 1)],
   [Color.fromRGBO(240, 19, 77, 1), Color.fromRGBO(228, 0, 124, 1)],
