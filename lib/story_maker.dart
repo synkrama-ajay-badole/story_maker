@@ -164,7 +164,7 @@ class _StoryMakerState extends State<StoryMaker> {
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
         body: Stack(
           clipBehavior: Clip.antiAlias,
           children: [
