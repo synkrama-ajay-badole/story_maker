@@ -185,8 +185,7 @@ class _StoryMakerState extends State<StoryMaker> {
                           key: previewContainer,
                           child: Stack(
                             children: [
-                              _stackData[0].value == ''
-                                  ? Container(
+                              if (_stackData[0].value == '') Container(
                                       decoration: BoxDecoration(
                                         gradient: LinearGradient(
                                           begin: FractionalOffset.topLeft,
@@ -195,8 +194,7 @@ class _StoryMakerState extends State<StoryMaker> {
                                               _selectedBackgroundGradient],
                                         ),
                                       ),
-                                    )
-                                  : Visibility(
+                                    ) else Visibility(
                                       visible:
                                           _stackData[0].type == ItemType.IMAGE,
                                       child: Center(
